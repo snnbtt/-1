@@ -1,32 +1,32 @@
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class City {
     private String name;
-    private Map<City, Integer> paths = new LinkedHashMap<>();
+    private List<City> destinations;
+    private List<Integer> costs;
 
     public City(String name) {
         this.name = name;
+        this.destinations = new ArrayList<>();
+        this.costs = new ArrayList<>();
     }
 
     public void addPath(City city, int cost) {
-        paths.put(city, cost);
-    }
-
-    public String getName() {
-        return name;
+        destinations.add(city);
+        costs.add(cost);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(name + ": [");
-        boolean first = true;
-        for (Map.Entry<City, Integer> entry : paths.entrySet()) {
-            if (!first) sb.append(", ");
-            sb.append(entry.getKey().getName()).append(":").append(entry.getValue());
-            first = false;
+        StringBuilder sb = new StringBuilder();
+        sb.append(name).append(": [");
+        for (int i = 0; i < destinations.size(); i++) {
+            if (i > 0) sb.append(", ");
+            sb.append(destinations.get(i).name).append(":").append(costs.get(i));
         }
         sb.append("]");
         return sb.toString();
     }
 }
+
